@@ -6,6 +6,9 @@ namespace lab_6_ochkoshnik.tester
 {
     public class TestHashTable
     {
+        /// <summary>
+        /// Тестирование своих алгоритмов
+        /// </summary>
         public static void TestingOwnHashFunction()
         {
             for (int i = 0; i < 6; i++)
@@ -29,6 +32,9 @@ namespace lab_6_ochkoshnik.tester
             }
         }
 
+        /// <summary>
+        /// Тестирование хеширований по классам (последнее задание)
+        /// </summary>
         public static void TestingHashFunctionByClass()
         {
             for (int i = 0; i < 6; i++)
@@ -53,6 +59,9 @@ namespace lab_6_ochkoshnik.tester
             }
         }
 
+        /// <summary>
+        /// Генерация данных для тестирования
+        /// </summary>
         private static void TestHashTableAdd(AbstractHashTable<string, DataItem> table, int count)
         {
             for (int i = 0; i < count; i++)
@@ -62,6 +71,9 @@ namespace lab_6_ochkoshnik.tester
             }
         }
 
+        /// <summary>
+        /// Сам тестер
+        /// </summary>
         private static void TestTable(Action<int> func, string name, int iterCount)
         {
             var tester = new TimeTester();

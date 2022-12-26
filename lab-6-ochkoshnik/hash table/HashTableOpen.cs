@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace lab_6_ochkoshnik.hash_table
 {
+    /// <summary>
+    /// Таблица с разрешением коллизий с открытой адрессации
+    /// </summary>
     public class HashTableOpen<TKey, TValue> : AbstractHashTable<TKey, TValue>
     {
         private readonly KeyValuePair<TKey, TValue>[] _cells;

@@ -15,6 +15,6 @@ namespace lab_6_ochkoshnik
         }
 
         public static string GenRndDate() =>
-            $"{new Random().Next(1980,2021)}.{new Random().Next(1,13)}.{new Random().Next(1,32)}";
+            $"{new Random().Next(1980,2022)}.{new Random().Next(1,13)}.{new Random().Next(1,32)}";
     }
 }

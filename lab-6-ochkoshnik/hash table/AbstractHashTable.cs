@@ -4,6 +4,9 @@ using System.Text;
 
 namespace lab_6_ochkoshnik.hash_table
 {
+    /// <summary>
+    /// Абстрактный класс для базовых алгоритмов
+    /// </summary>
     public abstract class AbstractHashTable<TKey, TValue> : IHashTable<TKey, TValue>
     {
         private readonly double _goldenRatioConst = (Math.Sqrt(5) - 1) / 2;
@@ -63,6 +66,9 @@ namespace lab_6_ochkoshnik.hash_table
             return sum % sizeHashTable;
         }
         
+        /// <summary>
+        /// Получение метода хеширования
+        /// </summary>
         protected Func<object, int, int> GetHashMethod(HashingType type)
         {
             return type switch

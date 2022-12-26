@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace lab_6_ochkoshnik.hash_table
 {
+    /// <summary>
+    /// Таблица с разрешением коллизий с помощью цепочек
+    /// </summary>
     public class HashTableChains<TKey, TValue> : AbstractHashTable<TKey, TValue>
     {
         private readonly LinkedList<KeyValuePair<TKey, TValue>>[] _cells;
@@ -91,9 +94,17 @@ namespace lab_6_ochkoshnik.hash_table
             Console.WriteLine("Список был полностью очищен");
         }
 
+        /// <summary>
+        /// Полечение длины самой длинной цепочки
+        /// </summary>
         public int LengthLongestChain => _cells.Max(x => x?.Count ?? 0);
+        /// <summary>
+        /// Полечение длины самой короткой цепочки
+        /// </summary>
         public int LengthShortestChain => _cells.Min(x => x?.Count ?? 0);
-
+        /// <summary>
+        /// Полечение коэффициента заполнения
+        /// </summary>
         public int ElementsCount => Count / (Size - 1);
     }
 }
