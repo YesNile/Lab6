@@ -11,7 +11,10 @@ namespace lab_6_ochkoshnik.hash_table
         public abstract int Add(TKey key, TValue dataItem);
         public abstract bool Remove(TKey id);
         public abstract void Clear();
-        
+        protected abstract int GetHashOwn(object key, int index);
+
+        public HashingType[] HashingTypes { protected get; set; } = {HashingType.Own};
+
         public int Size { get; protected set; }
         public int Count { get; protected set; }
 
@@ -44,7 +47,7 @@ namespace lab_6_ochkoshnik.hash_table
         /// <summary>
         /// Получение хэша с помощью MD5
         /// </summary>
-        public int GetHashMD5(TKey key)
+        public int GetHashMD5(object key, int sizeHashTable)
         {
             using var md = MD5.Create();
             var hash = md.ComputeHash(Encoding.UTF8.GetBytes(key?.ToString() ?? String.Empty));
@@ -57,7 +60,19 @@ namespace lab_6_ochkoshnik.hash_table
                 sum += Convert.ToInt32(strHash[i]);
             }
 
-            return sum % Size;
+            return sum % sizeHashTable;
+        }
+        
+        protected Func<object, int, int> GetHashMethod(HashingType type)
+        {
+            return type switch
+            {
+                HashingType.Multi => GetHashMulti,
+                HashingType.Div => GetHashDiv,
+                HashingType.Sha256 => GetHashSha256,
+                HashingType.MD5 => GetHashMD5,
+                _ => GetHashOwn
+            };
         }
     }
 }

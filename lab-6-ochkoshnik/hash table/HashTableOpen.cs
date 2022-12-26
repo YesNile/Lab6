@@ -7,9 +7,7 @@ namespace lab_6_ochkoshnik.hash_table
     {
         private readonly KeyValuePair<TKey, TValue>[] _cells;
 
-        private HashingType[] _hashingType = new [] {HashingType.Own};
-
-        private ResearchType _researchType = ResearchType.Linear;
+        public ResearchType ResearchType { private get; set; } = ResearchType.Linear;
 
         /// <summary> Функция линейного хеширования </summary>
         private static readonly Func<Func<object, int, int>, object, int, int, int> LinearHashing =
@@ -69,7 +67,7 @@ namespace lab_6_ochkoshnik.hash_table
                 }
 
                 _cells[index] = new KeyValuePair<TKey, TValue>(key, dataItem);
-                Console.WriteLine($"Элемент с ключем {key} добавлен c кодом {index}");
+                // Console.WriteLine($"Элемент с ключем {key} добавлен c кодом {index}");
                 return index;
             } while (i < Size);
 
@@ -116,28 +114,16 @@ namespace lab_6_ochkoshnik.hash_table
         /// <summary>
         /// Получение хэш кода
         /// </summary>
-        private int GetHashOwn(object key, int i) => key.ToString()[0] - 'a' + i;
+        protected override int GetHashOwn(object key, int i) => key.ToString()[0] - 'a' + i;
 
         private int CalculateHash(TKey key, int i)
         {
-            return _researchType switch
+            return ResearchType switch
             {
-                ResearchType.Linear => LinearHashing(GetHashMethod(_hashingType[0]), key, Size, i),
-                ResearchType.Double => DoubleHashing(GetHashMethod(_hashingType[0]), GetHashMethod(_hashingType[1]), key, Size, i),
-                ResearchType.Quadratic => QuadraticHashing(GetHashMethod(_hashingType[0]), key, Size, i),
-                _ => LinearHashing(GetHashMethod(_hashingType[0]), key, Size, i)
-            };
-        }
-        
-        private Func<object, int, int> GetHashMethod(HashingType type)
-        {
-            return type switch
-            {
-                HashingType.Multi => GetHashMulti,
-                HashingType.Div => GetHashDiv,
-                HashingType.Sha256 => GetHashSha256,
-                HashingType.MD5 => GetHashSha256,
-                _ => GetHashOwn
+                ResearchType.Linear => LinearHashing(GetHashMethod(HashingTypes[0]), key, Size, i),
+                ResearchType.Double => DoubleHashing(GetHashMethod(HashingTypes[0]), GetHashMethod(HashingTypes[1]), key, Size, i),
+                ResearchType.Quadratic => QuadraticHashing(GetHashMethod(HashingTypes[0]), key, Size, i),
+                _ => LinearHashing(GetHashMethod(HashingTypes[0]), key, Size, i)
             };
         }
 

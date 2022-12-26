@@ -19,12 +19,13 @@ namespace lab_6_ochkoshnik.hash_table
         /// <summary>
         /// Получение хэш кода
         /// </summary>
-        private int CalculateHash(string key)
+        protected override int GetHashOwn(object key, int index)
         {
+            string keyStr = key.ToString();
             int hash = 1;
-            for (int i = 0; i < key.Length / 2; i++)
+            for (int i = 0; i < keyStr.Length / 2; i++)
             {
-                hash += key[i] - 'a' + 1;
+                hash += keyStr[i] - 'a' + 1;
             }
 
             return hash % _cells.Length;
@@ -35,7 +36,8 @@ namespace lab_6_ochkoshnik.hash_table
         /// </summary>
         public override TValue Search(TKey id)
         {
-            var list = _cells[CalculateHash(id.ToString())];
+            int index = GetHashMethod(HashingTypes[0]).Invoke(id, 0);
+            var list = _cells[index];
             return list.First(x => x.Key.Equals(id)).Value;
         }
 
@@ -44,7 +46,7 @@ namespace lab_6_ochkoshnik.hash_table
         /// </summary>
         public override int Add(TKey key, TValue dataItem)
         {
-            var index = CalculateHash(key.ToString());
+            int index = GetHashMethod(HashingTypes[0]).Invoke(key, 0);
             if (_cells[index] is null)
             {
                 _cells[index] = new LinkedList<KeyValuePair<TKey, TValue>>();
@@ -63,7 +65,7 @@ namespace lab_6_ochkoshnik.hash_table
         /// </summary>
         public override bool Remove(TKey id)
         {
-            var index = CalculateHash(id.ToString());
+            int index = GetHashMethod(HashingTypes[0]).Invoke(id, 0);
             var removeData = _cells[index]?.First;
             if (removeData != null)
             {

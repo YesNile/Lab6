@@ -6,4 +6,10 @@
         <RootNamespace>lab_6_ochkoshnik</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="EPPlus" Version="6.1.1" />
+      <PackageReference Include="OfficeOpenXml.Core.ExcelPackage" Version="1.0.0" />
+      <PackageReference Include="OfficeOpenXml.Extends" Version="1.0.6" />
+    </ItemGroup>
+
 </Project>
