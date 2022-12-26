@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace HashTables
+namespace lab_6_ochkoshnik
 {
     public class Generator
     {

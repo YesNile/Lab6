@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using HashTables;
+using lab_6_ochkoshnik.hash_table;
 
 namespace lab_6_ochkoshnik
 {
@@ -14,9 +14,9 @@ namespace lab_6_ochkoshnik
             var count = 1000;
             Console.WriteLine("Generating...");
 
-            var users = new List<UserData>();
+            var users = new List<DataItem>();
             for (var i = 0; i < count; i++)
-                users.Add(UserData.RandomInstance());
+                users.Add(DataItem.RandomInstance());
             Console.WriteLine("Pushing...");
 
             var keys = new List<int>();
@@ -28,18 +28,19 @@ namespace lab_6_ochkoshnik
             var cnt = 0;
             for (var i = 0; i < count; i++)
             {
-                var e = table.Search(users[i].Id);
-                cnt += e.Id == users[i].Id && users[i].RegDate == e.RegDate ? 1 : 0;
+                var data = table.Search(users[i].Id);
+                cnt += data.Id == users[i].Id && users[i].RegDate == data.RegDate ? 1 : 0;
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.BackgroundColor = e.Id == users[i].Id && users[i].RegDate == e.RegDate
+                Console.BackgroundColor = data.Id == users[i].Id && users[i].RegDate == data.RegDate
                     ? ConsoleColor.Green
                     : ConsoleColor.Red;
-                Console.WriteLine($"{e.Id} - {e.RegDate} \t\t\t\t| {users[i].Id} - {users[i].RegDate} - \t\t\t\t| {users[i].GetHashCode()}" );
+                Console.WriteLine(
+                    $"{data.Id} - {data.RegDate} \t\t\t\t| {users[i].Id} - {users[i].RegDate} - \t\t\t\t| {users[i].GetHashCode()}");
             }
 
             Console.BackgroundColor = ConsoleColor.Black;
             Console.WriteLine($"{cnt}/{count} ({cnt * 100.0 / count}%)");
-            Console.WriteLine($"The largest cluster:{table.GetLargestCluster()}");
+            Console.WriteLine($"The largest cluster:{table.LargestCluster}");
             Console.ReadLine();
         }
     }
