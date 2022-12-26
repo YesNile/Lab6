@@ -44,12 +44,20 @@ namespace lab_6_ochkoshnik.hash_table
         /// <summary>
         /// Получение хэша с помощью MD5
         /// </summary>
-        public string GetHashMD5(object key)
+        public int GetHashMD5(TKey key)
         {
             using var md = MD5.Create();
             var hash = md.ComputeHash(Encoding.UTF8.GetBytes(key?.ToString() ?? String.Empty));
+            string strHash = BitConverter.ToString(hash);
+            strHash = strHash.Replace("-", "");
 
-            return Convert.ToBase64String(hash);
+            int sum = 0;
+            for (int i = 0; i < strHash.Length; i++)
+            {
+                sum += Convert.ToInt32(strHash[i]);
+            }
+
+            return sum % Size;
         }
     }
 }

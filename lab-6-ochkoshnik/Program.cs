@@ -11,8 +11,17 @@ namespace lab_6_ochkoshnik
             var size = 1000;
             // var table = new HashTableOpen<string, DataItem>(size);
             var table = new HashTableChains<string, DataItem>(size);
+
+            var dataItem = DataItem.RandomInstance();
+            table.Add(dataItem.Id, dataItem);
+            var a = table.GetHashMD5(table[dataItem.Id].Id);
+            Console.WriteLine(a);
+            
+            table.Clear();
             var count = 1000;
             Console.WriteLine("Generating...");
+
+           
 
             var users = new List<DataItem>();
             for (var i = 0; i < count; i++)
@@ -23,6 +32,8 @@ namespace lab_6_ochkoshnik
             for (var i = 0; i < count; i++)
                 keys.Add(table.Add(users[i].Id, users[i]));
             Console.WriteLine($"Done, press enter to print out all the {count} objects");
+            
+            
             Console.ReadLine();
 
             var cnt = 0;
