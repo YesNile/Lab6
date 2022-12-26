@@ -7,6 +7,24 @@ namespace lab_6_ochkoshnik.hash_table
     {
         private readonly KeyValuePair<TKey, TValue>[] _cells;
 
+        private HashingType[] _hashingType = new [] {HashingType.Own};
+
+        private ResearchType _researchType = ResearchType.Linear;
+
+        /// <summary> Функция линейного хеширования </summary>
+        private static readonly Func<Func<object, int, int>, object, int, int, int> LinearHashing =
+            (f, key, sizeHashTable, index) => (f(key, sizeHashTable) + index) % sizeHashTable;
+
+        /// <summary> Функция квадратичного хеширования </summary>
+        private static readonly Func<Func<object, int, int>, object, int, int, int> QuadraticHashing =
+            (f, key, sizeHashTable, index) => (f(key, sizeHashTable) + (int) Math.Pow(index, 2)) % sizeHashTable;
+
+        /// <summary> Функция двойного хеширования</summary>
+        private static readonly Func<Func<object, int, int>, Func<object, int, int>, object, int, int, int>
+            DoubleHashing =
+                (f1, f2, key, sizeHashTable, index) =>
+                    (f1(key, sizeHashTable) + index * f2(key, sizeHashTable)) % sizeHashTable;
+
         public HashTableOpen(int size)
         {
             Size = size;
@@ -23,7 +41,7 @@ namespace lab_6_ochkoshnik.hash_table
             var i = 0;
             do
             {
-                var index = CalculateHash(id.ToString(), i++);
+                var index = GetHashOwn(id.ToString(), i++);
                 if (_cells[index].Equals(default(KeyValuePair<TKey, TValue>)) || !_cells[index].Key.Equals(id))
                 {
                     continue;
@@ -44,7 +62,7 @@ namespace lab_6_ochkoshnik.hash_table
             var i = 0;
             do
             {
-                var index = CalculateHash(key.ToString(), i++);
+                var index = GetHashOwn(key.ToString(), i++);
                 if (!_cells[index].Equals(default(KeyValuePair<TKey, TValue>)))
                 {
                     continue;
@@ -67,7 +85,7 @@ namespace lab_6_ochkoshnik.hash_table
             var i = 0;
             do
             {
-                var index = CalculateHash(id.ToString(), i++);
+                var index = CalculateHash(id, i++);
                 if (_cells[index].Equals(default) || _cells[i].Key.Equals(id))
                 {
                     continue;
@@ -98,7 +116,30 @@ namespace lab_6_ochkoshnik.hash_table
         /// <summary>
         /// Получение хэш кода
         /// </summary>
-        private int CalculateHash(string key, int i) => key[0] - 'a' + i;
+        private int GetHashOwn(object key, int i) => key.ToString()[0] - 'a' + i;
+
+        private int CalculateHash(TKey key, int i)
+        {
+            return _researchType switch
+            {
+                ResearchType.Linear => LinearHashing(GetHashMethod(_hashingType[0]), key, Size, i),
+                ResearchType.Double => DoubleHashing(GetHashMethod(_hashingType[0]), GetHashMethod(_hashingType[1]), key, Size, i),
+                ResearchType.Quadratic => QuadraticHashing(GetHashMethod(_hashingType[0]), key, Size, i),
+                _ => LinearHashing(GetHashMethod(_hashingType[0]), key, Size, i)
+            };
+        }
+        
+        private Func<object, int, int> GetHashMethod(HashingType type)
+        {
+            return type switch
+            {
+                HashingType.Multi => GetHashMulti,
+                HashingType.Div => GetHashDiv,
+                HashingType.Sha256 => GetHashSha256,
+                HashingType.MD5 => GetHashSha256,
+                _ => GetHashOwn
+            };
+        }
 
         /// <summary>
         /// Получение длины самого длинного кластера
