@@ -2,6 +2,9 @@
 
 namespace lab_6_ochkoshnik
 {
+    /// <summary>
+    /// Класс просто с информацией какой-то
+    /// </summary>
     public class DataItem
     {
         public string Id { get; set; }

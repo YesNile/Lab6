@@ -3,11 +3,13 @@ using System.Linq;
 
 namespace lab_6_ochkoshnik.hash_table
 {
-    public class HashTableChains : IHashTable
+    public class HashTableChains : AbstractHashTable<string, LinkedList<DataItem>>
     {
         private readonly LinkedList<DataItem>[] _cells;
         public readonly int Size;
         public int Count { get; private set; }
+
+        public LinkedList<DataItem> this[string id] => Search(id);
 
         public HashTableChains(int size)
         {
@@ -26,9 +28,9 @@ namespace lab_6_ochkoshnik.hash_table
             return hash % _cells.Length;
         }
 
-        public DataItem Search(string id) => _cells[CalculateHash(id)].First(t => t.Id == id);
+        public override LinkedList<DataItem> Search(string id) => _cells[CalculateHash(id)].Where(t => t.Id == id) as LinkedList<DataItem>;
 
-        public int Add(DataItem dataItem)
+        public override int Add(DataItem dataItem)
         {
             var index = CalculateHash(dataItem.Id);
             if (_cells[index] is null) _cells[index] = new LinkedList<DataItem>();
@@ -40,12 +42,20 @@ namespace lab_6_ochkoshnik.hash_table
         /// <summary>
         /// Represents deletion of an object to a table.
         /// </summary>
-        public bool Remove(string id)
+        public override bool Remove(string id)
         {
             var removeData = _cells[CalculateHash(id)].First(t => t.Id == id);
             _cells[CalculateHash(id)].Remove(removeData);
             Count--;
             return true;
+        }
+
+        public override void Clear()
+        {
+            for (int i = 0; i < _cells.Length; i++)
+            {
+                _cells[i] = null;
+            }
         }
 
         // public (int, int, int) Calculations()

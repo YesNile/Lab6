@@ -1,6 +1,6 @@
 ﻿namespace lab_6_ochkoshnik.hash_table
 {
-    public class HashTableOpen : IHashTable
+    public class HashTableOpen : AbstractHashTable<string, DataItem>
     {
         private readonly DataItem[] _cells;
         public readonly int Size;
@@ -11,10 +11,12 @@
             _cells = new DataItem[Size];
         }
 
+        public DataItem this[string id] => Search(id);
+
         /// <summary>
-        /// Represents finding an object in a table.
+        /// Поиск по таблице
         /// </summary>
-        public DataItem Search(string id)
+        public override DataItem Search(string id)
         {
             var i = 0;
             do
@@ -31,9 +33,9 @@
         }
 
         /// <summary>
-        /// Represents adding an object to a table.
+        /// Добавление в таблицу
         /// </summary>
-        public int Add(DataItem dataItem)
+        public override int Add(DataItem dataItem)
         {
             var i = 0;
             do
@@ -51,9 +53,9 @@
         }
 
         /// <summary>
-        /// Represents deletion of an object to a table.
+        /// Удаление из таблицы
         /// </summary>
-        public bool Remove(string id)
+        public override bool Remove(string id)
         {
             var i = 0;
             do
@@ -70,8 +72,13 @@
             return false;
         }
 
+        public override void Clear()
+        {
+            throw new System.NotImplementedException();
+        }
+
         /// <summary>
-        /// Represents getting a hash code.
+        /// Получение хэш кода
         /// </summary>
         private int CalculateHash(string key, int i) => key[0] - 'a' + i;
 
