@@ -2,8 +2,8 @@
 {
     public interface IHashTable<TKey, TValue>
     {
-        TValue Search(string id);
-        int Add(DataItem dataItem);
-        bool Remove(string id);
+        TValue Search(TKey id);
+        int Add(TValue dataItem);
+        bool Remove(TKey id);
     }
 }

@@ -1,15 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace lab_6_ochkoshnik.hash_table
 {
-    public class HashTableChains : AbstractHashTable<string, LinkedList<DataItem>>
+    public class HashTableChains : AbstractHashTable<string, DataItem>
     {
         private readonly LinkedList<DataItem>[] _cells;
         public readonly int Size;
         public int Count { get; private set; }
 
-        public LinkedList<DataItem> this[string id] => Search(id);
+        public DataItem this[string id] => Search(id);
 
         public HashTableChains(int size)
         {
@@ -17,6 +18,9 @@ namespace lab_6_ochkoshnik.hash_table
             Size = size;
         }
 
+        /// <summary>
+        /// Получение хэш кода
+        /// </summary>
         private int CalculateHash(string key)
         {
             int hash = 1;
@@ -28,25 +32,43 @@ namespace lab_6_ochkoshnik.hash_table
             return hash % _cells.Length;
         }
 
-        public override LinkedList<DataItem> Search(string id) => _cells[CalculateHash(id)].Where(t => t.Id == id) as LinkedList<DataItem>;
+        /// <summary>
+        /// Поиск по таблице
+        /// </summary>
+        public override DataItem Search(string id) => _cells[CalculateHash(id)].First(t => t.Id == id);
 
+        /// <summary>
+        /// Добавление в таблицу
+        /// </summary>
         public override int Add(DataItem dataItem)
         {
             var index = CalculateHash(dataItem.Id);
-            if (_cells[index] is null) _cells[index] = new LinkedList<DataItem>();
+            if (_cells[index] is null)
+            {
+                _cells[index] = new LinkedList<DataItem>();
+            }
+
             _cells[index].AddFirst(dataItem);
             Count++;
+
+            Console.WriteLine($"Элемент {dataItem.Id} добавлен c кодом {index}");
+
             return index;
         }
 
         /// <summary>
-        /// Represents deletion of an object to a table.
+        /// Удаление из таблицы
         /// </summary>
         public override bool Remove(string id)
         {
-            var removeData = _cells[CalculateHash(id)].First(t => t.Id == id);
-            _cells[CalculateHash(id)].Remove(removeData);
+            var index = CalculateHash(id);
+            var removeData = _cells[index].First(t => t.Id == id);
+            _cells[index].Remove(removeData);
+
             Count--;
+
+            Console.WriteLine($"Элемент с ключем {id} был удален");
+
             return true;
         }
 
@@ -56,26 +78,11 @@ namespace lab_6_ochkoshnik.hash_table
             {
                 _cells[i] = null;
             }
-        }
 
-        // public (int, int, int) Calculations()
-        // {
-        //     int maxValue = 0;
-        //     int minValue = int.MaxValue;
-        //     int elements = 0;
-        //     foreach (var data in _cells)
-        //     {
-        //         if (data is null)
-        //         {
-        //             continue;
-        //         }
-        //         elements++;
-        //         maxValue = data.Count > maxValue ? data.Count : maxValue;
-        //         minValue = data.Count < minValue ? data.Count : minValue;
-        //     }
-        //
-        //     return (maxValue, minValue, elements);
-        // }
+            Count = 0;
+
+            Console.WriteLine("Список был полностью очищен");
+        }
 
         public int LengthLongestChain => _cells.Max(x => x?.Count ?? 0);
         public int LengthShortestChain => _cells.Min(x => x?.Count ?? 0);

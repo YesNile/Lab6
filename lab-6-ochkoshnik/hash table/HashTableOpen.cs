@@ -1,9 +1,12 @@
-﻿namespace lab_6_ochkoshnik.hash_table
+﻿using System;
+
+namespace lab_6_ochkoshnik.hash_table
 {
     public class HashTableOpen : AbstractHashTable<string, DataItem>
     {
         private readonly DataItem[] _cells;
         public readonly int Size;
+        public int Count { get; private set; }
 
         public HashTableOpen(int size)
         {
@@ -26,6 +29,7 @@
                 {
                     continue;
                 }
+
                 return _cells[index];
             } while (i < Size);
 
@@ -45,10 +49,13 @@
                 {
                     continue;
                 }
+
                 _cells[index] = dataItem;
+                Console.WriteLine($"Элемент {dataItem.Id} добавлен c кодом {index}");
                 return index;
             } while (i < Size);
 
+            Count++;
             return -1;
         }
 
@@ -65,16 +72,27 @@
                 {
                     continue;
                 }
+
                 _cells[index] = null;
                 return true;
             } while (i < Size);
+
+            Console.WriteLine($"Элемент с ключем {id} был удален");
+            Count--;
 
             return false;
         }
 
         public override void Clear()
         {
-            throw new System.NotImplementedException();
+            for (int i = 0; i < _cells.Length; i++)
+            {
+                _cells[i] = null;
+            }
+
+            Count = 0;
+
+            Console.WriteLine("Список был полностью очищен");
         }
 
         /// <summary>
@@ -82,7 +100,10 @@
         /// </summary>
         private int CalculateHash(string key, int i) => key[0] - 'a' + i;
 
-        public int LargestCluster
+        /// <summary>
+        /// Получение длины самого длинного кластера
+        /// </summary>
+        public int LargestClusterLength
         {
             get
             {

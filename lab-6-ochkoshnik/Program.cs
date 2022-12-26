@@ -40,7 +40,7 @@ namespace lab_6_ochkoshnik
 
             Console.BackgroundColor = ConsoleColor.Black;
             Console.WriteLine($"{cnt}/{count} ({cnt * 100.0 / count}%)");
-            Console.WriteLine($"The largest cluster:{table.LargestCluster}");
+            Console.WriteLine($"The largest cluster:{table.LargestClusterLength}");
             Console.ReadLine();
         }
     }
