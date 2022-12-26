@@ -55,7 +55,7 @@ namespace lab_6_ochkoshnik.hash_table
             _cells[index].AddLast(new KeyValuePair<TKey, TValue>(key, dataItem));
             Count++;
 
-            Console.WriteLine($"Элемент с ключем {key} добавлен c кодом {index}");
+            // Console.WriteLine($"Элемент с ключем {key} добавлен c кодом {index}");
 
             return index;
         }

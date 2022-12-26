@@ -13,8 +13,8 @@ namespace lab_6_ochkoshnik
             // TestHashTable.TestingOwnHashFunction();
             
             var size = 1000;
-            // var table = new HashTableOpen<string, DataItem>(size);
-            var table = new HashTableChains<string, DataItem>(size);
+            var table = new HashTableOpen<string, DataItem>(size);
+            // var table = new HashTableChains<string, DataItem>(size);
             
             table.Clear();
             var count = 1000;
@@ -50,10 +50,10 @@ namespace lab_6_ochkoshnik
             
             Console.BackgroundColor = ConsoleColor.Black;
             Console.WriteLine($"{cnt}/{count} ({cnt * 100.0 / count}%)");
-            Console.WriteLine($"Длина самой длинной цепочки {table.LengthLongestChain}\n" +
-                              $"Длина самой короткой цепочки {table.LengthLongestChain}\n" +
-                              $"Коэффициент заполнения {table.ElementsCount}");
-            // Console.WriteLine($"Длина самого длинного кластера {table.LargestClusterLength}");
+            // Console.WriteLine($"Длина самой длинной цепочки {table.LengthLongestChain}\n" +
+            //                   $"Длина самой короткой цепочки {table.LengthLongestChain}\n" +
+            //                   $"Коэффициент заполнения {table.ElementsCount}");
+            Console.WriteLine($"Длина самого длинного кластера {table.LargestClusterLength}");
             Console.ReadLine();
         }
     }
