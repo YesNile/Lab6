@@ -11,6 +11,9 @@ namespace lab_6_ochkoshnik.hash_table
         public abstract int Add(TKey key, TValue dataItem);
         public abstract bool Remove(TKey id);
         public abstract void Clear();
+        
+        public int Size { get; protected set; }
+        public int Count { get; protected set; }
 
 
         /// <summary>

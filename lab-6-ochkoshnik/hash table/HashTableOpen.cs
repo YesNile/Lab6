@@ -6,8 +6,6 @@ namespace lab_6_ochkoshnik.hash_table
     public class HashTableOpen<TKey, TValue> : AbstractHashTable<TKey, TValue>
     {
         private readonly KeyValuePair<TKey, TValue>[] _cells;
-        public readonly int Size;
-        public int Count { get; private set; }
 
         public HashTableOpen(int size)
         {
@@ -26,7 +24,7 @@ namespace lab_6_ochkoshnik.hash_table
             do
             {
                 var index = CalculateHash(id.ToString(), i++);
-                if (_cells[index].Equals(default) || _cells[index].Key.Equals(id))
+                if (_cells[index].Equals(default(KeyValuePair<TKey, TValue>)) || !_cells[index].Key.Equals(id))
                 {
                     continue;
                 }
@@ -47,13 +45,13 @@ namespace lab_6_ochkoshnik.hash_table
             do
             {
                 var index = CalculateHash(key.ToString(), i++);
-                if (_cells[index].Equals(default))
+                if (!_cells[index].Equals(default(KeyValuePair<TKey, TValue>)))
                 {
                     continue;
                 }
 
                 _cells[index] = new KeyValuePair<TKey, TValue>(key, dataItem);
-                Console.WriteLine($"Элемент {dataItem} с ключем {key} добавлен c кодом {index}");
+                Console.WriteLine($"Элемент с ключем {key} добавлен c кодом {index}");
                 return index;
             } while (i < Size);
 

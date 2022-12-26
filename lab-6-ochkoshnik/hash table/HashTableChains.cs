@@ -6,15 +6,13 @@ namespace lab_6_ochkoshnik.hash_table
 {
     public class HashTableChains<TKey, TValue> : AbstractHashTable<TKey, TValue>
     {
-        private readonly LinkedList<TValue>[] _cells;
-        public readonly int Size;
-        public int Count { get; private set; }
+        private readonly LinkedList<KeyValuePair<TKey, TValue>>[] _cells;
 
         public TValue this[TKey id] => Search(id);
 
         public HashTableChains(int size)
         {
-            _cells = new LinkedList<TValue>[size];
+            _cells = new LinkedList<KeyValuePair<TKey, TValue>>[size];
             Size = size;
         }
 
@@ -35,7 +33,11 @@ namespace lab_6_ochkoshnik.hash_table
         /// <summary>
         /// Поиск по таблице
         /// </summary>
-        public override TValue Search(TKey id) => _cells[CalculateHash(id.ToString())].First.Value;
+        public override TValue Search(TKey id)
+        {
+            var list = _cells[CalculateHash(id.ToString())];
+            return list.First(x => x.Key.Equals(id)).Value;
+        }
 
         /// <summary>
         /// Добавление в таблицу
@@ -45,13 +47,13 @@ namespace lab_6_ochkoshnik.hash_table
             var index = CalculateHash(key.ToString());
             if (_cells[index] is null)
             {
-                _cells[index] = new LinkedList<TValue>();
+                _cells[index] = new LinkedList<KeyValuePair<TKey, TValue>>();
             }
 
-            _cells[index].AddFirst(dataItem);
+            _cells[index].AddLast(new KeyValuePair<TKey, TValue>(key, dataItem));
             Count++;
 
-            Console.WriteLine($"Элемент {dataItem} с ключем {key} добавлен c кодом {index}");
+            Console.WriteLine($"Элемент с ключем {key} добавлен c кодом {index}");
 
             return index;
         }
@@ -90,6 +92,6 @@ namespace lab_6_ochkoshnik.hash_table
         public int LengthLongestChain => _cells.Max(x => x?.Count ?? 0);
         public int LengthShortestChain => _cells.Min(x => x?.Count ?? 0);
 
-        public int ElementsCount => Count / Size;
+        public int ElementsCount => Count / (Size - 1);
     }
 }
