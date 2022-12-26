@@ -8,7 +8,7 @@ namespace lab_6_ochkoshnik.hash_table
     {
         private readonly double _goldenRatioConst = (Math.Sqrt(5) - 1) / 2;
         public abstract TValue Search(TKey id);
-        public abstract int Add(TValue dataItem);
+        public abstract int Add(TKey key, TValue dataItem);
         public abstract bool Remove(TKey id);
         public abstract void Clear();
 

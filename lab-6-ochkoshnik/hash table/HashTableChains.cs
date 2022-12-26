@@ -4,17 +4,17 @@ using System.Linq;
 
 namespace lab_6_ochkoshnik.hash_table
 {
-    public class HashTableChains : AbstractHashTable<string, DataItem>
+    public class HashTableChains<TKey, TValue> : AbstractHashTable<TKey, TValue>
     {
-        private readonly LinkedList<DataItem>[] _cells;
+        private readonly LinkedList<TValue>[] _cells;
         public readonly int Size;
         public int Count { get; private set; }
 
-        public DataItem this[string id] => Search(id);
+        public TValue this[TKey id] => Search(id);
 
         public HashTableChains(int size)
         {
-            _cells = new LinkedList<DataItem>[size];
+            _cells = new LinkedList<TValue>[size];
             Size = size;
         }
 
@@ -35,23 +35,23 @@ namespace lab_6_ochkoshnik.hash_table
         /// <summary>
         /// Поиск по таблице
         /// </summary>
-        public override DataItem Search(string id) => _cells[CalculateHash(id)].First(t => t.Id == id);
+        public override TValue Search(TKey id) => _cells[CalculateHash(id.ToString())].First.Value;
 
         /// <summary>
         /// Добавление в таблицу
         /// </summary>
-        public override int Add(DataItem dataItem)
+        public override int Add(TKey key, TValue dataItem)
         {
-            var index = CalculateHash(dataItem.Id);
+            var index = CalculateHash(key.ToString());
             if (_cells[index] is null)
             {
-                _cells[index] = new LinkedList<DataItem>();
+                _cells[index] = new LinkedList<TValue>();
             }
 
             _cells[index].AddFirst(dataItem);
             Count++;
 
-            Console.WriteLine($"Элемент {dataItem.Id} добавлен c кодом {index}");
+            Console.WriteLine($"Элемент {dataItem} с ключем {key} добавлен c кодом {index}");
 
             return index;
         }
@@ -59,11 +59,14 @@ namespace lab_6_ochkoshnik.hash_table
         /// <summary>
         /// Удаление из таблицы
         /// </summary>
-        public override bool Remove(string id)
+        public override bool Remove(TKey id)
         {
-            var index = CalculateHash(id);
-            var removeData = _cells[index].First(t => t.Id == id);
-            _cells[index].Remove(removeData);
+            var index = CalculateHash(id.ToString());
+            var removeData = _cells[index]?.First;
+            if (removeData != null)
+            {
+                _cells[index].Remove(removeData);
+            }
 
             Count--;
 
