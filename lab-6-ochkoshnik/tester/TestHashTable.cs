@@ -22,7 +22,7 @@ namespace lab_6_ochkoshnik.tester
                     1);
             }
 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 5; i++)
             {
                 HashTableOpen<string, DataItem> table = new HashTableOpen<string, DataItem>(10_000);
                 var type = (HashingType) i;
@@ -38,7 +38,7 @@ namespace lab_6_ochkoshnik.tester
         /// </summary>
         public static void TestingHashFunctionByClass()
         {
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 5; i++)
             {
                 for (int j = 0; j < 3; j++)
                 {
@@ -54,7 +54,7 @@ namespace lab_6_ochkoshnik.tester
                     }
 
                     TestTable(table, (count) => TestHashTableAdd(table, count),
-                        $"Tаблица с цепочками ({researchType.ToString()})",
+                        $"Цепочки ({hashingType.ToString()}) ({researchType.ToString()})",
                         1);
                 }
             }
@@ -81,7 +81,7 @@ namespace lab_6_ochkoshnik.tester
         {
             var tester = new TimeTester();
             var tester2 = new MemoryTester();
-            for (int i = 1; i < 10_000; i += 1)
+            for (int i = 1; i < 1_000; i += 1)
             {
                 Console.WriteLine($"Тест алгоритма: {name} | Итерация: {i}");
                 var count = i;
