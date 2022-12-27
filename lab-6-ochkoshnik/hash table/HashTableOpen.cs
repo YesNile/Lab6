@@ -70,11 +70,10 @@ namespace lab_6_ochkoshnik.hash_table
                 }
 
                 _cells[index] = new KeyValuePair<TKey, TValue>(key, dataItem);
+                Count++;
                 // Console.WriteLine($"Элемент с ключем {key} добавлен c кодом {index}");
                 return index;
             } while (i < Size);
-
-            Count++;
             return -1;
         }
 
@@ -111,7 +110,7 @@ namespace lab_6_ochkoshnik.hash_table
 
             Count = 0;
 
-            Console.WriteLine("Список был полностью очищен");
+            // Console.WriteLine("Список был полностью очищен");
         }
 
         /// <summary>

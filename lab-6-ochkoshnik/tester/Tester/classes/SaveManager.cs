@@ -16,7 +16,7 @@ namespace lab_6_ochkoshnik.tester.Tester.classes
             using ExcelPackage package = new(file);
             string name = results[0].AlgorithmName;
             var ws = package.Workbook.Worksheets
-                .FirstOrDefault(ws => ws.Name == name);
+                .FirstOrDefault(ws => ws.Name.Equals(name));
 
             if (ws == null) ws = package.Workbook.Worksheets.Add(name);
             else

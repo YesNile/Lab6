@@ -10,7 +10,7 @@ namespace lab_6_ochkoshnik
         static void Main(string[] args)
         {
             // TestHashTable.TestingHashFunctionByClass();
-            // TestHashTable.TestingOwnHashFunction();
+            TestHashTable.TestingOwnHashFunction();
             
             var size = 1000;
             var table = new HashTableOpen<string, DataItem>(size);

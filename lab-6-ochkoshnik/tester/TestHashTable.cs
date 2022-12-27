@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Channels;
 using lab_6_ochkoshnik.hash_table;
 using lab_6_ochkoshnik.tester.Tester;
 
@@ -11,13 +12,13 @@ namespace lab_6_ochkoshnik.tester
         /// </summary>
         public static void TestingOwnHashFunction()
         {
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 5; i++)
             {
                 HashTableChains<string, DataItem> table = new HashTableChains<string, DataItem>(10_000);
                 var type = (HashingType) i;
                 table.HashingTypes = new[] {type};
 
-                TestTable((count) => TestHashTableAdd(table, count), $"Тест таблицы с цепочками ({type.ToString()})",
+                TestTable(table, (count) => TestHashTableAdd(table, count), $"Таблица с цепочками ({type.ToString()})",
                     1);
             }
 
@@ -27,7 +28,7 @@ namespace lab_6_ochkoshnik.tester
                 var type = (HashingType) i;
                 table.HashingTypes = new[] {type};
 
-                TestTable((count) => TestHashTableAdd(table, count), $"Тест таблицы с цепочками ({type.ToString()})",
+                TestTable(table, (count) => TestHashTableAdd(table, count), $"Таблица с адрессацией ({type.ToString()})",
                     1);
             }
         }
@@ -39,7 +40,7 @@ namespace lab_6_ochkoshnik.tester
         {
             for (int i = 0; i < 6; i++)
             {
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < 3; j++)
                 {
                     HashTableOpen<string, DataItem> table = new HashTableOpen<string, DataItem>(10_000);
                     var researchType = (ResearchType) j;
@@ -52,8 +53,8 @@ namespace lab_6_ochkoshnik.tester
                         table.HashingTypes = new[] {hashingType, secondHashingType};
                     }
 
-                    TestTable((count) => TestHashTableAdd(table, count),
-                        $"Тест таблицы с цепочками ({researchType.ToString()})",
+                    TestTable(table, (count) => TestHashTableAdd(table, count),
+                        $"Tаблица с цепочками ({researchType.ToString()})",
                         1);
                 }
             }
@@ -69,21 +70,25 @@ namespace lab_6_ochkoshnik.tester
                 var user = DataItem.RandomInstance();
                 table.Add(user.Id, user);
             }
+
+            Console.WriteLine();
         }
 
         /// <summary>
         /// Сам тестер
         /// </summary>
-        private static void TestTable(Action<int> func, string name, int iterCount)
+        private static void TestTable(AbstractHashTable<string, DataItem> table, Action<int> func, string name, int iterCount)
         {
             var tester = new TimeTester();
             var tester2 = new MemoryTester();
-            for (int i = 1; i < 1_00; i += 1)
+            for (int i = 1; i < 10_000; i += 1)
             {
                 Console.WriteLine($"Тест алгоритма: {name} | Итерация: {i}");
                 var count = i;
                 tester.Test(() => func.Invoke(count), iterCount, name);
+                table.Clear();
                 tester2.Test(() => func.Invoke(count), iterCount, name);
+                table.Clear();
             }
 
             tester.SaveAsExcel(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"{name} - время");

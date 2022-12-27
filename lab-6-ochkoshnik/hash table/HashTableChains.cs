@@ -39,7 +39,7 @@ namespace lab_6_ochkoshnik.hash_table
         /// </summary>
         public override TValue Search(TKey id)
         {
-            int index = GetHashMethod(HashingTypes[0]).Invoke(id, 0);
+            int index = GetHashMethod(HashingTypes[0]).Invoke(id, Size);
             var list = _cells[index];
             return list.First(x => x.Key.Equals(id)).Value;
         }
@@ -49,14 +49,14 @@ namespace lab_6_ochkoshnik.hash_table
         /// </summary>
         public override int Add(TKey key, TValue dataItem)
         {
-            int index = GetHashMethod(HashingTypes[0]).Invoke(key, 0);
+            int index = GetHashMethod(HashingTypes[0]).Invoke(key, Size);
             if (_cells[index] is null)
             {
                 _cells[index] = new LinkedList<KeyValuePair<TKey, TValue>>();
             }
 
             _cells[index].AddLast(new KeyValuePair<TKey, TValue>(key, dataItem));
-            Count++;
+            ++Count;
 
             // Console.WriteLine($"Элемент с ключем {key} добавлен c кодом {index}");
 
@@ -68,7 +68,7 @@ namespace lab_6_ochkoshnik.hash_table
         /// </summary>
         public override bool Remove(TKey id)
         {
-            int index = GetHashMethod(HashingTypes[0]).Invoke(id, 0);
+            int index = GetHashMethod(HashingTypes[0]).Invoke(id, Size);
             var removeData = _cells[index]?.First;
             if (removeData != null)
             {
@@ -91,7 +91,7 @@ namespace lab_6_ochkoshnik.hash_table
 
             Count = 0;
 
-            Console.WriteLine("Список был полностью очищен");
+            // Console.WriteLine("Список был полностью очищен");
         }
 
         /// <summary>
