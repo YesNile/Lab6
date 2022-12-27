@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using lab_6_ochkoshnik.hash_table;
-using lab_6_ochkoshnik.tester;
+using lab_6.hash_table;
+using lab_6.tester;
 
-namespace lab_6_ochkoshnik
+namespace lab_6
 {
     class Program
     {
         static void Main(string[] args)
         {
-            // TestHashTable.TestingHashFunctionByClass();
+            TestHashTable.TestingHashFunctionByClass();
             TestHashTable.TestingOwnHashFunction();
             
             var size = 1000;

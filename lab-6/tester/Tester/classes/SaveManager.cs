@@ -4,7 +4,7 @@ using OfficeOpenXml;
 using OfficeOpenXml.Drawing.Chart;
 using OfficeOpenXml.Drawing.Chart.Style;
 
-namespace lab_6_ochkoshnik.tester.Tester.classes
+namespace lab_6.tester.Tester.classes
 {
     public static class SaveManager
     {

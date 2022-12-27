@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace lab_6_ochkoshnik.hash_table
+namespace lab_6.hash_table
 {
     /// <summary>
     /// Абстрактный класс для базовых алгоритмов

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace lab_6_ochkoshnik
+namespace lab_6
 {
     public class Generator
     {

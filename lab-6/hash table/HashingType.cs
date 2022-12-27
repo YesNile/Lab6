@@ -1,4 +1,4 @@
-﻿namespace lab_6_ochkoshnik.hash_table
+﻿namespace lab_6.hash_table
 {
     /// <summary>
     /// Типы хеширования

@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using lab_6_ochkoshnik.tester.Tester.classes;
-using lab_6_ochkoshnik.tester.Tester.interfaces;
+using lab_6.tester.Tester.classes;
+using lab_6.tester.Tester.interfaces;
 
-namespace lab_6_ochkoshnik.tester.Tester
+namespace lab_6.tester.Tester
 {
     public class MemoryTester : ITester<long>
     {

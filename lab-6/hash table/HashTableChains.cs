@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace lab_6_ochkoshnik.hash_table
+namespace lab_6.hash_table
 {
     /// <summary>
     /// Таблица с разрешением коллизий с помощью цепочек
