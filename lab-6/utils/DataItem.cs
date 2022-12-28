@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace lab_6_ochkoshnik
+namespace lab_6
 {
     /// <summary>
     /// Класс просто с информацией какой-то

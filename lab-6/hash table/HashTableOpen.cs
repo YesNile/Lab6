@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace lab_6_ochkoshnik.hash_table
+namespace lab_6.hash_table
 {
     /// <summary>
     /// Таблица с разрешением коллизий с открытой адрессации

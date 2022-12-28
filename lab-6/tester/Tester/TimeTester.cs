@@ -1,29 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using lab_6_ochkoshnik.tester.Tester.classes;
-using lab_6_ochkoshnik.tester.Tester.interfaces;
+using lab_6.tester.Tester.classes;
+using lab_6.tester.Tester.interfaces;
 
-namespace lab_6_ochkoshnik.tester.Tester
+namespace lab_6.tester.Tester
 {
-    public class StepTester : ITester<double>, IStepTester
+    public class TimeTester : ITester<double>, ITimeTester
     {
-        public StepTester()
+        public TimeTester()
         {
             AllResults = new List<TestResult<double>>();
         }
         
         public TestResult<double> LastResult { get; protected set; }
         public IList<TestResult<double>> AllResults { get; protected set; }
-
-        public void Test(Func<(double, int)> algorithm, int iterNumber, string name)
+        
+        public void Test(Action algorithm, int iterNumber, string name)
         {
+            var time = new Stopwatch();
             var localResults = new double[iterNumber];
             for (int i = 0; i < iterNumber; i++)
             {
-                var resultIter = algorithm.Invoke();
-                localResults[i] = resultIter.Item2;
+                time.Restart();
+                algorithm.Invoke();
+                time.Stop();
+                localResults[i] = time.Elapsed.TotalMilliseconds;
             }
             var resultId = AllResults.Count(x => x.AlgorithmName == name) + 1;
             var generalResult = localResults.Min();
@@ -34,7 +38,7 @@ namespace lab_6_ochkoshnik.tester.Tester
                 AllResults.Add(testResult); 
             }
         }
-
+        
         public void SaveAsExcel(string path, string name, bool emissionsEnabled = true)
         {
             path = Path.Combine(path, name + ".xlsx");
@@ -45,8 +49,10 @@ namespace lab_6_ochkoshnik.tester.Tester
             {
                 var groupAr = group.ToArray();
                 // if (!emissionsEnabled) Services.DeleteEmissions(groupAr);
-                SaveManager.SaveTable(file, groupAr, "Степень", "Шаги");
+                SaveManager.SaveTable(file, groupAr, "Количество (n)", "Время (Миллисекунды)");
             }
         }
+        
+
     }
 }

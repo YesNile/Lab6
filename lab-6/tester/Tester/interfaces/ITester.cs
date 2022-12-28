@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using lab_6_ochkoshnik.tester.Tester.classes;
+using lab_6.tester.Tester.classes;
 
-namespace lab_6_ochkoshnik.tester.Tester.interfaces
+namespace lab_6.tester.Tester.interfaces
 {
     public interface ITester<TResult>
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace lab_6_ochkoshnik.tester.Tester.interfaces
+namespace lab_6.tester.Tester.interfaces
 {
     public interface ITimeTester
     {

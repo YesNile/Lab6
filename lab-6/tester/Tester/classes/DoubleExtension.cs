@@ -1,4 +1,4 @@
-﻿namespace lab_6_ochkoshnik.tester.Tester.classes
+﻿namespace lab_6.tester.Tester.classes
 {
     public static class DoubleExtension
     {
