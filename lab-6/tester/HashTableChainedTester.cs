@@ -1,6 +1,6 @@
 ﻿using System;
-using lab_6_ochkoshnik.hash_table;
-using lab_6_ochkoshnik.tester.Tester;
+using lab_6.hash_table;
+using lab_6.tester.Tester;
 
 namespace lab_6_ochkoshnik.tester
 {

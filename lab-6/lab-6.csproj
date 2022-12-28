@@ -3,7 +3,7 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net5.0</TargetFramework>
-        <RootNamespace>lab_6_ochkoshnik</RootNamespace>
+        <RootNamespace>lab_6</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

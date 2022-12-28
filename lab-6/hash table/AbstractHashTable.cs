@@ -65,7 +65,7 @@ namespace lab_6.hash_table
 
             return sum % sizeHashTable;
         }
-        
+
         /// <summary>
         /// Получение метода хеширования
         /// </summary>

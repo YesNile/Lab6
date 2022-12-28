@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using lab_6.hash_table;
-using lab_6.tester;
+﻿using lab_6.hash_table;
+using lab_6_ochkoshnik.tester;
 
 namespace lab_6
 {
@@ -9,7 +7,6 @@ namespace lab_6
     {
         static void Main(string[] args)
         {
-<<<<<<< HEAD:lab-6-ochkoshnik/Program.cs
             HashTableChainedTester.Testing(HashingType.Div, HashingType.Multi, HashingType.Own, HashingType.Sha256,
                 HashingType.MD5);
             HashTableChainedTester.TestForTable("Метод цепочек", 1);
@@ -58,54 +55,6 @@ namespace lab_6
             // //                   $"Коэффициент заполнения {table.ElementsCount}");
             // Console.WriteLine($"Длина самого длинного кластера {table.LargestClusterLength}");
             // Console.ReadLine();
-=======
-            TestHashTable.TestingHashFunctionByClass();
-            TestHashTable.TestingOwnHashFunction();
-            
-            var size = 1000;
-            var table = new HashTableOpen<string, DataItem>(size);
-            // var table = new HashTableChains<string, DataItem>(size);
-            
-            table.Clear();
-            var count = 1000;
-            Console.WriteLine("Generating...");
-            
-            
-            
-            var users = new List<DataItem>();
-            for (var i = 0; i < count; i++)
-                users.Add(DataItem.RandomInstance());
-            Console.WriteLine("Pushing...");
-            
-            var keys = new List<int>();
-            for (var i = 0; i < count; i++)
-                keys.Add(table.Add(users[i].Id, users[i]));
-            Console.WriteLine($"Done, press enter to print out all the {count} objects");
-            
-            
-            Console.ReadLine();
-            
-            var cnt = 0;
-            for (var i = 0; i < count; i++)
-            {
-                var data = table[users[i].Id];
-                cnt += data.Id == users[i].Id && users[i].RegDate == data.RegDate ? 1 : 0;
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.BackgroundColor = data.Id == users[i].Id && users[i].RegDate == data.RegDate
-                    ? ConsoleColor.Green
-                    : ConsoleColor.Red;
-                Console.WriteLine(
-                    $"{data.Id} - {data.RegDate} \t\t\t\t| {users[i].Id} - {users[i].RegDate} - \t\t\t\t| {users[i].GetHashCode()}");
-            }
-            
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.WriteLine($"{cnt}/{count} ({cnt * 100.0 / count}%)");
-            // Console.WriteLine($"Длина самой длинной цепочки {table.LengthLongestChain}\n" +
-            //                   $"Длина самой короткой цепочки {table.LengthLongestChain}\n" +
-            //                   $"Коэффициент заполнения {table.ElementsCount}");
-            Console.WriteLine($"Длина самого длинного кластера {table.LargestClusterLength}");
-            Console.ReadLine();
->>>>>>> 01d536be198e6f0d5daae85829516d9110bdea27:lab-6/Program.cs
         }
     }
 }

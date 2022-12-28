@@ -25,7 +25,6 @@ namespace lab_6_ochkoshnik.tester
                 {
                     var a = (char) randomValues.Next(0, 255);
                     s += a;
-
                 }
 
                 values.Add(s);

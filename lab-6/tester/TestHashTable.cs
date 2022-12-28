@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Channels;
 using lab_6.hash_table;
 using lab_6.tester.Tester;
 
@@ -28,7 +27,8 @@ namespace lab_6.tester
                 var type = (HashingType) i;
                 table.HashingTypes = new[] {type};
 
-                TestTable(table, (count) => TestHashTableAdd(table, count), $"Таблица с адрессацией ({type.ToString()})",
+                TestTable(table, (count) => TestHashTableAdd(table, count),
+                    $"Таблица с адрессацией ({type.ToString()})",
                     1);
             }
         }
@@ -77,7 +77,8 @@ namespace lab_6.tester
         /// <summary>
         /// Сам тестер
         /// </summary>
-        private static void TestTable(AbstractHashTable<string, DataItem> table, Action<int> func, string name, int iterCount)
+        private static void TestTable(AbstractHashTable<string, DataItem> table, Action<int> func, string name,
+            int iterCount)
         {
             var tester = new TimeTester();
             var tester2 = new MemoryTester();

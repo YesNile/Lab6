@@ -74,6 +74,7 @@ namespace lab_6.hash_table
                 // Console.WriteLine($"Элемент с ключем {key} добавлен c кодом {index}");
                 return index;
             } while (i < Size);
+
             return -1;
         }
 
@@ -123,7 +124,8 @@ namespace lab_6.hash_table
             return ResearchType switch
             {
                 ResearchType.Linear => LinearHashing(GetHashMethod(HashingTypes[0]), key, Size, i),
-                ResearchType.Double => DoubleHashing(GetHashMethod(HashingTypes[0]), GetHashMethod(HashingTypes[1]), key, Size, i),
+                ResearchType.Double => DoubleHashing(GetHashMethod(HashingTypes[0]), GetHashMethod(HashingTypes[1]),
+                    key, Size, i),
                 ResearchType.Quadratic => QuadraticHashing(GetHashMethod(HashingTypes[0]), key, Size, i),
                 _ => LinearHashing(GetHashMethod(HashingTypes[0]), key, Size, i)
             };

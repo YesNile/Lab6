@@ -98,10 +98,12 @@ namespace lab_6.hash_table
         /// Полечение длины самой длинной цепочки
         /// </summary>
         public int LengthLongestChain => _cells.Max(x => x?.Count ?? 0);
+
         /// <summary>
         /// Полечение длины самой короткой цепочки
         /// </summary>
         public int LengthShortestChain => _cells.Min(x => x?.Count ?? 0);
+
         /// <summary>
         /// Полечение коэффициента заполнения
         /// </summary>
