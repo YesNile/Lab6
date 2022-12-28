@@ -31,7 +31,7 @@ namespace lab_6_ochkoshnik.hash_table
                 hash += keyStr[i] - 'a' + 1;
             }
 
-            return hash % _cells.Length;
+            return Math.Abs(hash % _cells.Length);
         }
 
         /// <summary>
